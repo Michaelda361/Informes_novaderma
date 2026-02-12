@@ -1,0 +1,107 @@
+╔════════════════════════════════════════════════════════════╗
+║  INSTALACIÓN - GENERADOR DE REPORTES NOVADERMA           ║
+╚════════════════════════════════════════════════════════════╝
+
+PASO 1: VERIFICAR PYTHON
+=========================
+✓ Python 3.14.0 detectado
+✓ Sistema listo para instalar dependencias
+
+
+PASO 2: INSTALAR DEPENDENCIAS
+==============================
+
+Opción A - Automática (RECOMENDADO):
+------------------------------------
+1. Doble clic en: iniciar.bat
+2. El script instalará todo automáticamente
+
+Opción B - Manual:
+------------------
+Abre la terminal (CMD o PowerShell) y ejecuta:
+
+    pip install -r requirements.txt
+
+Esto instalará:
+  • Flask 3.0.0
+  • openpyxl 3.1.2
+  • WeasyPrint 60.2
+  • Pillow 10.1.0
+
+
+PASO 3: AGREGAR LOGO (OPCIONAL)
+================================
+1. Coloca el logo de Novaderma en: static/logo.png
+2. Formato: PNG con fondo transparente
+3. Tamaño: 200x50 píxeles (máximo)
+
+
+PASO 4: INICIAR LA APLICACIÓN
+==============================
+
+Opción A - Script automático:
+-----------------------------
+Doble clic en: iniciar.bat
+
+Opción B - Manual:
+------------------
+1. Abre terminal en esta carpeta
+2. Ejecuta: python app.py
+3. Abre navegador en: http://localhost:5000
+
+
+VERIFICACIÓN DE INSTALACIÓN
+============================
+
+Para verificar que todo está instalado:
+
+    pip list
+
+Deberías ver:
+  ✓ Flask
+  ✓ openpyxl
+  ✓ WeasyPrint
+  ✓ Pillow
+
+
+SOLUCIÓN DE PROBLEMAS
+======================
+
+Problema: "pip no se reconoce"
+Solución: python -m pip install -r requirements.txt
+
+Problema: Error al instalar WeasyPrint
+Solución: WeasyPrint requiere GTK3 en Windows
+          Visita: https://weasyprint.readthedocs.io/en/stable/install.html
+
+Problema: "ModuleNotFoundError"
+Solución: Reinstala las dependencias con:
+          pip install -r requirements.txt --force-reinstall
+
+
+PRIMER USO
+==========
+
+1. Ejecuta: iniciar.bat
+2. Espera a que aparezca: "Running on http://127.0.0.1:5000"
+3. Abre tu navegador en: http://localhost:5000
+4. Arrastra el archivo Excel a la zona de carga
+5. Haz clic en "Generar PDF" para cada evaluación
+
+¡Listo! 🎉
+
+
+NOTAS IMPORTANTES
+=================
+
+• NO cierres la ventana de la terminal mientras uses la app
+• El servidor debe estar corriendo para usar la aplicación
+• Los archivos Excel se guardan temporalmente en: uploads/
+• Los PDFs generados se guardan en: output/
+• Presiona Ctrl+C en la terminal para detener el servidor
+
+
+CONTACTO
+========
+
+Para soporte técnico, contacta al equipo de desarrollo.

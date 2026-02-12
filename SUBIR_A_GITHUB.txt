@@ -1,0 +1,297 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║     GUÍA PARA SUBIR EL PROYECTO A GITHUB                     ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+
+═══════════════════════════════════════════════════════════════
+  OPCIÓN 1: USANDO GITHUB DESKTOP (MÁS FÁCIL)
+═══════════════════════════════════════════════════════════════
+
+PASO 1: Instalar GitHub Desktop
+────────────────────────────────
+1. Descargar desde: https://desktop.github.com/
+2. Instalar y abrir
+3. Iniciar sesión con tu cuenta de GitHub
+
+
+PASO 2: Crear repositorio
+──────────────────────────
+1. En GitHub Desktop: File → New Repository
+2. Nombre: novaderma-reportes
+3. Descripción: Generador de reportes de evaluación
+4. Local Path: Seleccionar esta carpeta
+5. Clic en "Create Repository"
+
+
+PASO 3: Hacer commit inicial
+─────────────────────────────
+1. GitHub Desktop mostrará todos los archivos
+2. En "Summary": escribir "Initial commit"
+3. Clic en "Commit to main"
+
+
+PASO 4: Publicar en GitHub
+───────────────────────────
+1. Clic en "Publish repository"
+2. Elegir si será público o privado
+3. Clic en "Publish repository"
+
+¡Listo! 🎉
+
+
+═══════════════════════════════════════════════════════════════
+  OPCIÓN 2: USANDO LÍNEA DE COMANDOS
+═══════════════════════════════════════════════════════════════
+
+PASO 1: Instalar Git
+─────────────────────
+Descargar desde: https://git-scm.com/downloads
+
+
+PASO 2: Configurar Git (primera vez)
+─────────────────────────────────────
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"
+
+
+PASO 3: Crear repositorio en GitHub.com
+────────────────────────────────────────
+1. Ir a: https://github.com/new
+2. Nombre: novaderma-reportes
+3. Descripción: Generador de reportes de evaluación
+4. Elegir público o privado
+5. NO marcar "Initialize with README"
+6. Clic en "Create repository"
+
+
+PASO 4: Inicializar Git local
+──────────────────────────────
+Abrir terminal en la carpeta del proyecto:
+
+git init
+git add .
+git commit -m "Initial commit"
+
+
+PASO 5: Conectar con GitHub
+────────────────────────────
+Reemplazar TU-USUARIO con tu usuario de GitHub:
+
+git remote add origin https://github.com/TU-USUARIO/novaderma-reportes.git
+git branch -M main
+git push -u origin main
+
+
+PASO 6: Ingresar credenciales
+──────────────────────────────
+- Usuario: tu usuario de GitHub
+- Contraseña: usar Personal Access Token
+  (Crear en: GitHub → Settings → Developer settings → Personal access tokens)
+
+¡Listo! 🎉
+
+
+═══════════════════════════════════════════════════════════════
+  OPCIÓN 3: SUBIR ARCHIVOS DIRECTAMENTE EN GITHUB.COM
+═══════════════════════════════════════════════════════════════
+
+PASO 1: Crear repositorio
+──────────────────────────
+1. Ir a: https://github.com/new
+2. Nombre: novaderma-reportes
+3. Descripción: Generador de reportes de evaluación
+4. Marcar "Add a README file"
+5. Clic en "Create repository"
+
+
+PASO 2: Subir archivos
+───────────────────────
+1. En el repositorio: clic en "Add file" → "Upload files"
+2. Arrastrar todos los archivos del proyecto
+3. Escribir mensaje: "Initial commit"
+4. Clic en "Commit changes"
+
+¡Listo! 🎉
+
+
+═══════════════════════════════════════════════════════════════
+  ARCHIVOS QUE SE SUBIRÁN
+═══════════════════════════════════════════════════════════════
+
+✓ app.py
+✓ requirements.txt
+✓ iniciar.bat
+✓ README.md
+✓ LICENSE
+✓ .gitignore
+✓ templates/
+✓ static/
+✓ uploads/.gitkeep
+✓ output/.gitkeep
+✓ Documentación (.md y .txt)
+
+
+═══════════════════════════════════════════════════════════════
+  ARCHIVOS QUE NO SE SUBIRÁN (EN .gitignore)
+═══════════════════════════════════════════════════════════════
+
+✗ __pycache__/
+✗ *.pyc
+✗ venv/
+✗ uploads/*.xlsx
+✗ output/*.pdf
+✗ .vscode/
+✗ EVALUACIÓN DE DESEMPEÑO DIRECTIVOS 2025.xlsx
+✗ GEOVANNY VERGARA.pdf
+✗ plantilla.html (archivo original de referencia)
+
+
+═══════════════════════════════════════════════════════════════
+  DESPUÉS DE SUBIR
+═══════════════════════════════════════════════════════════════
+
+1. Verificar que el repositorio esté público o privado según desees
+
+2. Agregar descripción y tags en GitHub:
+   - Tags: python, flask, pdf, excel, reports
+
+3. Agregar topics en GitHub:
+   - python
+   - flask
+   - pdf-generation
+   - excel-processing
+   - performance-evaluation
+
+4. Opcional: Agregar GitHub Pages para documentación
+
+
+═══════════════════════════════════════════════════════════════
+  COMANDOS GIT ÚTILES
+═══════════════════════════════════════════════════════════════
+
+Ver estado:
+  git status
+
+Ver historial:
+  git log
+
+Agregar cambios:
+  git add .
+
+Hacer commit:
+  git commit -m "Descripción del cambio"
+
+Subir cambios:
+  git push
+
+Descargar cambios:
+  git pull
+
+Ver repositorios remotos:
+  git remote -v
+
+
+═══════════════════════════════════════════════════════════════
+  ACTUALIZAR EL REPOSITORIO (DESPUÉS DEL PRIMER PUSH)
+═══════════════════════════════════════════════════════════════
+
+1. Hacer cambios en los archivos
+
+2. Agregar cambios:
+   git add .
+
+3. Hacer commit:
+   git commit -m "Descripción de los cambios"
+
+4. Subir a GitHub:
+   git push
+
+
+═══════════════════════════════════════════════════════════════
+  CLONAR EN OTRO EQUIPO
+═══════════════════════════════════════════════════════════════
+
+git clone https://github.com/TU-USUARIO/novaderma-reportes.git
+cd novaderma-reportes
+pip install -r requirements.txt
+python app.py
+
+
+═══════════════════════════════════════════════════════════════
+  HACER EL REPOSITORIO PRIVADO
+═══════════════════════════════════════════════════════════════
+
+1. Ir al repositorio en GitHub
+2. Settings → Danger Zone
+3. Change repository visibility
+4. Make private
+
+
+═══════════════════════════════════════════════════════════════
+  COLABORADORES
+═══════════════════════════════════════════════════════════════
+
+Para agregar colaboradores:
+1. Ir al repositorio en GitHub
+2. Settings → Collaborators
+3. Add people
+4. Ingresar usuario de GitHub
+
+
+═══════════════════════════════════════════════════════════════
+  PROTEGER INFORMACIÓN SENSIBLE
+═══════════════════════════════════════════════════════════════
+
+⚠️ IMPORTANTE: Antes de subir, verificar que NO haya:
+
+✗ Contraseñas
+✗ API Keys
+✗ Tokens de acceso
+✗ Datos personales de empleados
+✗ Información confidencial de la empresa
+
+El .gitignore ya está configurado para excluir:
+- Archivos Excel con datos
+- PDFs generados
+- Archivos temporales
+
+
+═══════════════════════════════════════════════════════════════
+  RECOMENDACIONES
+═══════════════════════════════════════════════════════════════
+
+✓ Usar repositorio PRIVADO si contiene lógica de negocio sensible
+✓ Agregar README.md completo (ya incluido)
+✓ Incluir LICENSE (ya incluido)
+✓ Mantener .gitignore actualizado (ya incluido)
+✓ Hacer commits frecuentes con mensajes descriptivos
+✓ Usar branches para nuevas features
+✓ Documentar cambios importantes
+
+
+═══════════════════════════════════════════════════════════════
+  ENLACES ÚTILES
+═══════════════════════════════════════════════════════════════
+
+GitHub Desktop:
+  https://desktop.github.com/
+
+Git para Windows:
+  https://git-scm.com/downloads
+
+Guía de Git:
+  https://git-scm.com/book/es/v2
+
+GitHub Docs:
+  https://docs.github.com/
+
+
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║              ¡LISTO PARA SUBIR A GITHUB! 🚀                   ║
+║                                                               ║
+║         Elige la opción que prefieras y sigue los pasos       ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Reportes - Novaderma</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 10px; }
+        .header p { opacity: 0.9; }
+        .content { padding: 30px; }
+        .upload-section {
+            border: 3px dashed #667eea;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9ff;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+        .upload-section:hover { border-color: #764ba2; background: #f0f2ff; }
+        .upload-section.dragover { border-color: #764ba2; background: #e8ebff; }
+        .file-input-wrapper {
+            display: inline-block;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .results {
+            display: none;
+            margin-top: 30px;
+        }
+        .results.show { display: block; }
+        .results-header {
+            background: #f8f9ff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover { background: #f8f9ff; }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-sobresaliente { background: #4caf50; color: white; }
+        .badge-satisfactorio { background: #2196f3; color: white; }
+        .badge-aceptable { background: #ff9800; color: white; }
+        .badge-no-satisfactorio { background: #f44336; color: white; }
+        .btn-pdf {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-pdf:hover { background: #45a049; }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .loading.show { display: block; }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .alert-error { background: #ffebee; color: #c62828; border-left: 4px solid #c62828; }
+        .alert-success { background: #e8f5e9; color: #2e7d32; border-left: 4px solid #2e7d32; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Generador de Reportes de Evaluación</h1>
+            <p>LABORATORIOS NOVADERMA S.A.</p>
+        </div>
+        
+        <div class="content">
+            <div id="alert-container"></div>
+            
+            <div class="upload-section" id="dropZone">
+                <h2 style="margin-bottom: 15px;">📁 Cargar Archivo Excel</h2>
+                <p style="color: #666; margin-bottom: 20px;">
+                    Arrastra y suelta el archivo aquí o haz clic para seleccionar
+                </p>
+                <div class="file-input-wrapper">
+                    <button class="btn" type="button" onclick="document.getElementById('fileInput').click()">Seleccionar Archivo</button>
+                    <input type="file" id="fileInput" accept=".xlsx,.xls" style="display: none;">
+                </div>
+                <p id="fileName" style="margin-top: 15px; color: #667eea; font-weight: 600;"></p>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Procesando archivo...</p>
+            </div>
+            
+            <div class="results" id="results">
+                <div class="results-header">
+                    <h3>Evaluaciones Encontradas: <span id="totalCount">0</span></h3>
+                    <button class="btn" onclick="generarTodosPDF()">📥 Descargar Todos los PDF</button>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Cargo</th>
+                                <th>Área</th>
+                                <th>Promedio</th>
+                                <th>Rendimiento</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let evaluacionesData = [];
+        
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+        const alertContainer = document.getElementById('alert-container');
+        
+        // Drag and drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileSelect(files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+        
+        function showAlert(message, type = 'error') {
+            alertContainer.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => { alertContainer.innerHTML = ''; }, 5000);
+        }
+        
+        function handleFileSelect(file) {
+            fileName.textContent = `Archivo seleccionado: ${file.name}`;
+            uploadFile(file);
+        }
+        
+        async function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            loading.classList.add('show');
+            results.classList.remove('show');
+            
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    evaluacionesData = data.evaluaciones;
+                    mostrarResultados(data.evaluaciones);
+                    showAlert(`✅ Se procesaron ${data.total} evaluaciones correctamente`, 'success');
+                } else {
+                    showAlert(data.error || 'Error al procesar el archivo');
+                }
+            } catch (error) {
+                showAlert('Error de conexión: ' + error.message);
+            } finally {
+                loading.classList.remove('show');
+            }
+        }
+        
+        function mostrarResultados(evaluaciones) {
+            document.getElementById('totalCount').textContent = evaluaciones.length;
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            evaluaciones.forEach((eval, index) => {
+                const badgeClass = `badge-${eval.rendimiento.toLowerCase().replace(' ', '-')}`;
+                const row = `
+                    <tr>
+                        <td>${eval.id}</td>
+                        <td>${eval.nombre}</td>
+                        <td>${eval.cargo}</td>
+                        <td>${eval.area}</td>
+                        <td><strong>${eval.promedio}</strong></td>
+                        <td><span class="badge ${badgeClass}">${eval.rendimiento}</span></td>
+                        <td>
+                            <button class="btn-pdf" onclick="generarPDF(${index})">
+                                📄 Generar PDF
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+            
+            results.classList.add('show');
+        }
+        
+        async function generarPDF(index) {
+            const evaluacion = evaluacionesData[index];
+            
+            try {
+                const response = await fetch(`/generar-pdf/${evaluacion.id}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ evaluacion })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `evaluacion_${evaluacion.nombre.replace(/\s+/g, '_')}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    showAlert('✅ PDF generado correctamente', 'success');
+                } else {
+                    showAlert('Error al generar el PDF');
+                }
+            } catch (error) {
+                showAlert('Error: ' + error.message);
+            }
+        }
+        
+        async function generarTodosPDF() {
+            showAlert('⏳ Generando todos los PDFs...', 'success');
+            for (let i = 0; i < evaluacionesData.length; i++) {
+                await generarPDF(i);
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page { 
+            size: A4; 
+            margin: 8mm; 
+        } 
+        @media print { 
+            body { 
+                background:#ffffff !important; 
+                padding:0 !important; 
+            } 
+            .container { 
+                box-shadow:none !important; 
+                margin:0 auto !important; 
+                padding:14px 16px !important; 
+                max-width:196mm !important; 
+            } 
+            .main-title { 
+                font-size:16px !important; 
+            } 
+            .subtitle { 
+                font-size:11px !important; 
+            } 
+            .section-title { 
+                font-size:12.5px !important; 
+            } 
+            .info-row, .block, .rating-row { 
+                font-size:11.5px !important; 
+            } 
+            .company-logo img { 
+                max-height:45px !important; 
+            } 
+        } 
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            background-color:#ffffff; 
+            margin:0; 
+            padding:14px; 
+            color:#000000; 
+        } 
+        .container { 
+            width:100%; 
+            max-width:196mm; 
+            background-color:#ffffff; 
+            margin:0 auto; 
+            border-radius:4px; 
+            box-shadow:none; 
+            padding:14px 16px 14px 16px; 
+            color:#000000; 
+        } 
+        .header-top { 
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            margin-bottom:8px; 
+            gap:12px; 
+        } 
+        .company-logo img { 
+            max-height:45px; 
+            display:block; 
+            height:auto; 
+        } 
+        .code-box { 
+            font-size:10px; 
+            color:#000000; 
+            text-align:right; 
+        } 
+        .code-box div { 
+            margin-bottom:1px; 
+        } 
+        .main-title { 
+            text-align:center; 
+            font-size:16px; 
+            font-weight:bold; 
+            color:#000000; 
+            text-transform:uppercase; 
+            margin:8px 0 5px 0; 
+        } 
+        .subtitle { 
+            text-align:center; 
+            font-size:11px; 
+            color:#000000; 
+            margin-bottom:10px; 
+        } 
+        .section-title { 
+            font-size:12.5px; 
+            font-weight:bold; 
+            color:#000000; 
+            margin-top:10px; 
+            margin-bottom:6px; 
+            border-bottom:1px solid #e4e4e4; 
+            padding-bottom:3px; 
+            text-transform:uppercase; 
+        } 
+        .info-row { 
+            font-size:11.5px; 
+            color:#000000; 
+            margin-bottom:3px; 
+            line-height:1.3; 
+        } 
+        .label { 
+            font-weight:bold; 
+            color:#000000; 
+            text-transform:uppercase; 
+        } 
+        .block { 
+            background-color:#fafafa; 
+            border:1px solid #eeeeee; 
+            border-radius:4px; 
+            padding:10px 12px; 
+            font-size:11.5px; 
+            color:#000000; 
+            margin-bottom:9px; 
+            box-shadow:none; 
+            line-height:1.35; 
+        } 
+        .rating-row { 
+            margin-bottom:4px; 
+        } 
+        .rating-label { 
+            font-weight:bold; 
+            color:#000000; 
+        } 
+        .kpi-neutral { 
+            background:#ffffff; 
+            padding:8px 10px; 
+            border-left:4px solid #9e9e9e; 
+            border-radius:2px; 
+            font-weight:bold; 
+            color:#000000; 
+            box-shadow:none; 
+            border-top:none; 
+            border-right:none; 
+            border-bottom:none; 
+            margin-top:5px; 
+        } 
+        .footer-note { 
+            font-size:10px; 
+            color:#000000; 
+            margin-top:10px; 
+            border-top:1px solid #e4e4e4; 
+            padding-top:5px; 
+            line-height:1.4; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-top">
+            <div class="company-logo">
+                {% if logo_base64 %}
+                <img src="data:image/png;base64,{{ logo_base64 }}" alt="LABORATORIOS NOVADERMA S.A." />
+                {% else %}
+                <div style="font-size: 20px; font-weight: bold; color: #667eea;">LABORATORIOS NOVADERMA S.A.</div>
+                {% endif %}
+            </div>
+            <div class="code-box">
+                <div><strong>CODIGO:</strong> FT-RH-042</div>
+                <div><strong>VERSION:</strong> 1</div>
+                <div><strong>VIGENCIA:</strong> 2026/02/03</div>
+            </div>
+        </div>
+        
+        <div class="main-title">RESULTADOS EVALUACIÓN DE DESEMPEÑO LABORAL</div>
+        <div class="subtitle">Evaluación de desempeño y competencias del trabajador</div>
+        
+        <div class="section-title">1. Datos de identificación del colaborador</div>
+        <div class="info-row"><span class="label">Empresa:</span> LABORATORIOS NOVADERMA S.A.</div>
+        <div class="info-row"><span class="label">Área / Proceso:</span> {{ evaluacion.area }}</div>
+        <div class="info-row"><span class="label">Cargo:</span> {{ evaluacion.cargo }}</div>
+        <div class="info-row"><span class="label">Nombre del colaborador:</span> {{ evaluacion.nombre }}</div>
+        <div class="info-row"><span class="label">Jefe inmediato:</span> {{ evaluacion.jefe }}</div>
+        <div class="info-row"><span class="label">Período evaluado:</span> {{ evaluacion.periodo }}</div>
+        <div class="info-row"><span class="label">Fecha de evaluación:</span> {{ evaluacion.fecha }}</div>
+        
+        <div class="section-title">2. Resumen del desempeño</div>
+        <div class="block">
+            <div style="display:flex; gap:8px; align-items:stretch;">
+                <div class="kpi-neutral" style="flex:1; margin-top:6px;">
+                    PROMEDIO: {{ "%.2f"|format(evaluacion.promedio) }}
+                </div>
+                <div class="kpi-neutral" style="flex:1; margin-top:6px;">
+                    RENDIMIENTO: {{ evaluacion.rendimiento }}
+                </div>
+            </div>
+            <div style="height:3px;"></div>
+            <span class="label">Comentario del jefe inmediato:</span><br>
+            {{ evaluacion.comentario_jefe or 'Sin comentarios' }}
+        </div>
+        
+        <div class="section-title">3. Desempeño operativo (1 a 5)</div>
+        <div class="block">
+            <div class="rating-row">
+                <span class="rating-label">Organización del trabajo y tiempos:</span> 
+                {{ evaluacion.calificaciones.organizacion }} / 5
+            </div>
+            <div class="rating-row">
+                <span class="rating-label">Cumple con los resultados esperados de su función:</span> 
+                {{ evaluacion.calificaciones.cumple_resultados }} / 5
+            </div>
+            <div class="rating-row">
+                <span class="rating-label">Aplica en su desempeño diario los conceptos vistos en capacitaciones y entrenamientos:</span> 
+                {{ evaluacion.calificaciones.aplica_capacitacion }} / 5
+            </div>
+            <div class="rating-row">
+                <span class="rating-label">Uso adecuado de equipos:</span> 
+                {{ evaluacion.calificaciones.uso_equipos }} / 5
+            </div>
+        </div>
+        
+        <div class="section-title">4. Compromiso y calidad (1 a 5)</div>
+        <div class="block">
+            <div class="rating-row">
+                <span class="rating-label">Cumple con las políticas, leyes, reglamentos, procedimientos, normas y horarios aplicables:</span> 
+                {{ evaluacion.calificaciones.cumple_politicas }} / 5
+            </div>
+            <div class="rating-row">
+                <span class="rating-label">Conoce, entiende y aplica la política de calidad de LABORATORIOS NOVADERMA SA:</span> 
+                {{ evaluacion.calificaciones.conoce_calidad }} / 5
+            </div>
+            <div class="rating-row">
+                <span class="rating-label">Propone alternativas para mejorar el trabajo, aportando ideas constructivas y recomendaciones:</span> 
+                {{ evaluacion.calificaciones.propone_mejoras }} / 5
+            </div>
+        </div>
+        
+        <div class="section-title">5. Comportamiento y trabajo en equipo (1 a 5)</div>
+        <div class="block">
+            <div class="rating-row">
+                <span class="rating-label">Relaciones interpersonales:</span> 
+                {{ evaluacion.calificaciones.relaciones }} / 5
+            </div>
+            <div class="rating-row">
+                <span class="rating-label">Trabajo en equipo:</span> 
+                {{ evaluacion.calificaciones.trabajo_equipo }} / 5
+            </div>
+            <div class="rating-row">
+                <span class="rating-label">Actitud de servicio:</span> 
+                {{ evaluacion.calificaciones.actitud_servicio }} / 5
+            </div>
+        </div>
+        
+        <div class="section-title">6. Aportes</div>
+        <div class="block">
+            {{ evaluacion.aportes or 'Sin aportes registrados' }}
+        </div>
+        
+        <div class="section-title">7. Plan de mejora</div>
+        <div class="block">
+            <span class="label">Acción de mejora:</span><br>
+            {{ evaluacion.plan_mejora or 'Sin plan de mejora registrado' }}
+        </div>
+        
+        <div class="footer-note">
+            Este formato se utiliza como registro de evaluación de desempeño y competencias del trabajador, 
+            en coherencia con las políticas internas de LABORATORIOS NOVADERMA S.A. y con los lineamientos 
+            del Sistema de Gestión de la Calidad.
+        </div>
+    </div>
+</body>
+</html>

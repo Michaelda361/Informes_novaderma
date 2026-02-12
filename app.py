@@ -36,60 +36,200 @@ def calcular_rendimiento(promedio):
     else:
         return 'Deficiente'
 
+def normalizar_texto(texto):
+    """Normaliza texto para comparación (minúsculas, sin espacios extras, sin acentos)"""
+    if not texto:
+        return ''
+    import unicodedata
+    texto = str(texto).lower().strip()
+    texto = ''.join(c for c in unicodedata.normalize('NFD', texto) if unicodedata.category(c) != 'Mn')
+    # Eliminar caracteres especiales y espacios múltiples
+    texto = ' '.join(texto.split())
+    return texto
+
+def encontrar_columna(headers, posibles_nombres, buscar_parcial=True):
+    """Busca una columna por varios nombres posibles"""
+    headers_norm = [normalizar_texto(h) for h in headers]
+    
+    for nombre in posibles_nombres:
+        nombre_norm = normalizar_texto(nombre)
+        
+        # Primero buscar coincidencia exacta
+        for idx, header in enumerate(headers_norm):
+            if nombre_norm == header:
+                return idx
+        
+        # Luego buscar coincidencia parcial si está habilitado
+        if buscar_parcial:
+            for idx, header in enumerate(headers_norm):
+                if nombre_norm in header or header in nombre_norm:
+                    return idx
+    return None
+
+def extraer_calificaciones_por_categoria(headers, row):
+    """Extrae calificaciones agrupadas por categorías"""
+    calificaciones = {}
+    
+    for idx, header in enumerate(headers):
+        if idx >= len(row):
+            continue
+            
+        val = row[idx]
+        if not isinstance(val, (int, float)) or val <= 0 or val > 5:
+            continue
+        
+        header_norm = normalizar_texto(header)
+        
+        # Mapear a categorías específicas basadas en palabras clave
+        categorias = {
+            'organizacion': ['organiza', 'organizacion'],
+            'cumple_resultados': ['cumple', 'resultados', 'cumplimiento'],
+            'aplica_capacitacion': ['capacitacion', 'entrenamiento', 'formacion', 'aplica'],
+            'uso_equipos': ['equipos', 'herramientas', 'uso adecuado', 'elementos'],
+            'cumple_politicas': ['politicas', 'normas', 'reglamentos', 'horarios'],
+            'conoce_calidad': ['calidad', 'politica de calidad'],
+            'propone_mejoras': ['mejoras', 'mejoramiento', 'alternativas', 'ideas'],
+            'relaciones': ['relaciones', 'cordialidad', 'interpersonales'],
+            'trabajo_equipo': ['equipo', 'colaboracion', 'apoya'],
+            'actitud_servicio': ['servicio', 'actitud', 'atencion', 'satisfacer'],
+            'comunicacion': ['comunicacion', 'asertiva'],
+            'compromiso': ['compromiso', 'objetivos', 'metas'],
+            'lealtad': ['lealtad', 'veracidad', 'bienes'],
+            'seguridad': ['seguridad', 'salud', 'trabajo', 'actos inseguros'],
+            'etica': ['etica', 'responsabilidad social', 'confidencialidad'],
+            'orientacion_logro': ['logro', 'meta propuesta'],
+            'adaptacion': ['adaptacion', 'cambio'],
+        }
+        
+        # Asignar a la primera categoría que coincida
+        for categoria, palabras_clave in categorias.items():
+            if categoria not in calificaciones:  # Solo tomar la primera coincidencia
+                for palabra in palabras_clave:
+                    if palabra in header_norm:
+                        calificaciones[categoria] = val
+                        break
+    
+    return calificaciones
+
 def procesar_excel(file_path):
-    """Procesa el archivo Excel y extrae los datos"""
+    """Procesa el archivo Excel y extrae los datos de forma flexible"""
     wb = openpyxl.load_workbook(file_path, data_only=True)
     ws = wb.active
     
+    # Leer encabezados
+    headers = [cell.value if cell.value else '' for cell in ws[1]]
+    
+    # Función auxiliar para verificar si una columna contiene principalmente texto
+    def es_columna_texto(col_idx):
+        """Verifica si una columna contiene texto en lugar de números"""
+        valores_texto = 0
+        valores_numero = 0
+        for row in ws.iter_rows(min_row=2, max_row=min(10, ws.max_row), values_only=True):
+            if col_idx < len(row) and row[col_idx]:
+                val = row[col_idx]
+                if isinstance(val, str) and len(val) > 10:  # Texto largo
+                    valores_texto += 1
+                elif isinstance(val, (int, float)) and 1 <= val <= 5:  # Calificación
+                    valores_numero += 1
+        return valores_texto > valores_numero
+    
+    # Función mejorada para encontrar columnas de texto
+    def encontrar_columna_texto(palabras_clave):
+        """Busca columna de texto que contenga las palabras clave"""
+        for idx, header in enumerate(headers):
+            header_norm = normalizar_texto(header)
+            for palabra in palabras_clave:
+                palabra_norm = normalizar_texto(palabra)
+                if palabra_norm in header_norm and es_columna_texto(idx):
+                    return idx
+        return None
+    
+    # Mapeo flexible de columnas - busca por nombres similares
+    columnas = {
+        'id': encontrar_columna(headers, ['id', 'identificacion', 'numero', 'no'], buscar_parcial=False),
+        'nombre': encontrar_columna(headers, ['nombre1', 'nombre', 'empleado', 'trabajador', 'colaborador']),
+        'cargo': encontrar_columna(headers, ['cargo', 'puesto', 'posicion']),
+        'area': encontrar_columna(headers, ['area', 'departamento', 'seccion']),
+        'jefe': encontrar_columna(headers, ['jefe inmediato', 'jefe', 'supervisor', 'evaluador']),
+        'fecha': encontrar_columna(headers, ['fecha', 'fecha evaluacion', 'fecha de evaluacion']),
+        'periodo': encontrar_columna(headers, ['periodo', 'periodo evaluacion', 'periodo de evaluacion']),
+        'porcentaje': encontrar_columna(headers, ['porcentaje', '%', 'puntaje total']),
+        # Columnas de texto - usar búsqueda especial
+        'aportes': encontrar_columna_texto(['que aportes hizo', 'aportes hizo usted']),
+        'mejorar': encontrar_columna_texto(['puede mejorar en el proximo', 'aspectos puede mejorar']),
+        'debilidad': encontrar_columna_texto(['debilidad para cumplir', 'area siente debilidad', 'aspecto siente debilidad']),
+        'objetivos_alcanzados': encontrar_columna_texto(['objetivos individuales logros', 'logros alcanzo durante', 'objetivos alcanzo durante']),
+        'objetivos_futuros': encontrar_columna_texto(['objetivos espera superar', 'espera superar proximo']),
+        'porcentaje_cumplimiento': encontrar_columna(headers, ['promedio cumplimiento', 'cumplimiento objetivos', 'porcentaje error']),
+        'comentario_jefe': encontrar_columna_texto(['comentarios del jefe inmediato fortalezas', 'comentarios del jefe inmediato']),
+        'plan_mejora': encontrar_columna_texto(['plan de mejora propuesto', 'plan mejora propuesto']),
+    }
+    
     evaluaciones = []
-    headers = [cell.value for cell in ws[1]]
     
     for row_idx, row in enumerate(ws.iter_rows(min_row=2, values_only=True), start=2):
-        if not row[0]:  # Si no hay ID, saltar
+        row = list(row) if row else []
+        
+        # Función auxiliar para obtener valor por nombre de columna
+        def get_col(nombre, default=''):
+            idx = columnas.get(nombre)
+            if idx is None or idx >= len(row):
+                return default
+            val = row[idx]
+            return val if val is not None else default
+        
+        # Si no hay ID, saltar
+        id_val = get_col('id')
+        if not id_val:
             continue
-            
+        
         # Extraer datos básicos
         evaluacion = {
-            'id': row[0],
-            'nombre': row[4] or '',
-            'cargo': row[5] or '',
-            'area': row[6] or '',
-            'jefe': row[7] or '',
+            'id': id_val,
+            'nombre': str(get_col('nombre', '')),
+            'cargo': str(get_col('cargo', '')),
+            'area': str(get_col('area', '')),
+            'jefe': str(get_col('jefe', '')),
             'fecha': '',
-            'periodo': row[9] or '',
-            'porcentaje': row[46] or 0,
-            'comentario_jefe': row[51] or '',
-            'plan_mejora': row[52] or '',
-            'aportes': row[47] or '',
+            'periodo': str(get_col('periodo', '')),
+            'porcentaje': get_col('porcentaje', 0),
+            'comentario_jefe': str(get_col('comentario_jefe', '')),
+            'plan_mejora': str(get_col('plan_mejora', '')),
+            'aportes': str(get_col('aportes', '')),
         }
         
-        # Formatear fecha de evaluación
-        if isinstance(row[8], datetime):
-            evaluacion['fecha'] = row[8].strftime('%Y/%m/%d')
-        elif row[8]:
-            evaluacion['fecha'] = str(row[8])
-        else:
-            evaluacion['fecha'] = ''
+        # Formatear fecha
+        fecha_val = get_col('fecha')
+        if isinstance(fecha_val, datetime):
+            evaluacion['fecha'] = fecha_val.strftime('%Y/%m/%d')
+        elif fecha_val:
+            evaluacion['fecha'] = str(fecha_val)
         
-        # Calcular promedio de las calificaciones (columnas 10-46)
-        calificaciones = [row[i] for i in range(10, 46) if isinstance(row[i], (int, float))]
+        # Buscar todas las calificaciones numéricas (valores entre 1 y 5)
+        calificaciones = []
+        for idx, val in enumerate(row):
+            if isinstance(val, (int, float)) and 1 <= val <= 5:
+                calificaciones.append(val)
+        
+        # Calcular promedio
         promedio = sum(calificaciones) / len(calificaciones) if calificaciones else 0
-        
         evaluacion['promedio'] = round(promedio, 2)
         evaluacion['rendimiento'] = calcular_rendimiento(promedio)
         
-        # Extraer calificaciones específicas para el reporte
+        # Extraer calificaciones específicas por categoría
+        calificaciones_dict = extraer_calificaciones_por_categoria(headers, row)
+        
         evaluacion['calificaciones'] = {
-            'organizacion': row[11] or 0,
-            'cumple_resultados': row[12] or 0,
-            'aplica_capacitacion': row[19] or 0,
-            'uso_equipos': row[10] or 0,
-            'cumple_politicas': row[25] or 0,
-            'conoce_calidad': row[28] or 0,
-            'propone_mejoras': row[29] or 0,
-            'relaciones': row[43] or 0,
-            'trabajo_equipo': row[44] or 0,
-            'actitud_servicio': row[41] or 0,
+            'organizacion': calificaciones_dict.get('organizacion', 0),
+            'cumple_resultados': calificaciones_dict.get('cumple_resultados', 0),
+            'aplica_capacitacion': calificaciones_dict.get('aplica_capacitacion', 0),
+            'uso_equipos': calificaciones_dict.get('uso_equipos', 0),
+            'cumple_politicas': calificaciones_dict.get('cumple_politicas', 0),
+            'conoce_calidad': calificaciones_dict.get('conoce_calidad', 0),
+            'propone_mejoras': calificaciones_dict.get('propone_mejoras', 0),
+            'relaciones': calificaciones_dict.get('relaciones', 0),
+            'trabajo_equipo': calificaciones_dict.get('trabajo_equipo', 0),
+            'actitud_servicio': calificaciones_dict.get('actitud_servicio', 0),
         }
         
         evaluaciones.append(evaluacion)
@@ -113,10 +253,25 @@ def upload_file():
         return jsonify({'error': 'El archivo debe ser Excel (.xlsx o .xls)'}), 400
     
     try:
-        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        # Sanitizar nombre de archivo
+        import re
+        from werkzeug.utils import secure_filename
+        
+        # Usar secure_filename pero mantener la extensión
+        filename = secure_filename(file.filename)
+        if not filename:
+            # Si secure_filename elimina todo, usar un nombre genérico con timestamp
+            import time
+            ext = '.xlsx' if file.filename.endswith('.xlsx') else '.xls'
+            filename = f'evaluacion_{int(time.time())}{ext}'
+        
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        print(f"Guardando archivo como: {filepath}")
         file.save(filepath)
         
+        print(f"Procesando archivo: {filepath}")
         evaluaciones = procesar_excel(filepath)
+        print(f"Procesadas {len(evaluaciones)} evaluaciones")
         
         return jsonify({
             'success': True,
@@ -124,6 +279,9 @@ def upload_file():
             'evaluaciones': evaluaciones
         })
     except Exception as e:
+        import traceback
+        error_detail = traceback.format_exc()
+        print(f"Error detallado:\n{error_detail}")
         return jsonify({'error': f'Error al procesar el archivo: {str(e)}'}), 500
 
 @app.route('/generar-pdf/<int:eval_id>', methods=['POST'])
@@ -153,4 +311,8 @@ def generar_pdf(eval_id):
         return jsonify({'error': f'Error al generar PDF: {str(e)}'}), 500
 
 if __name__ == '__main__':
+    # En desarrollo
     app.run(debug=True, host='0.0.0.0', port=5000)
+else:
+    # En producción (Render, Railway, etc.)
+    # Gunicorn manejará la aplicación

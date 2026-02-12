@@ -27,12 +27,11 @@ wheels/
 instance/
 .webassets-cache
 
-# Archivos generados
-uploads/
-output/
-*.xlsx
-*.xls
-*.pdf
+# Archivos temporales
+uploads/*
+!uploads/.gitkeep
+output/*
+!output/.gitkeep
 
 # IDEs
 .vscode/
@@ -44,3 +43,9 @@ output/
 # OS
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
+# Archivos de prueba
+test_*.py

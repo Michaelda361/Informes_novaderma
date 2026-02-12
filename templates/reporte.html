@@ -191,56 +191,76 @@
             {{ evaluacion.comentario_jefe or 'Sin comentarios' }}
         </div>
         
-        <div class="section-title">3. Desempeño operativo (1 a 5)</div>
+        <div class="section-title">3. Desempeño en el cargo (1 a 5)</div>
         <div class="block">
+            {% if evaluacion.calificaciones.organizacion > 0 %}
             <div class="rating-row">
-                <span class="rating-label">Organización del trabajo y tiempos:</span> 
+                <span class="rating-label">Organización del trabajo y cumplimiento de tiempos:</span> 
                 {{ evaluacion.calificaciones.organizacion }} / 5
             </div>
+            {% endif %}
+            {% if evaluacion.calificaciones.cumple_resultados > 0 %}
             <div class="rating-row">
                 <span class="rating-label">Cumple con los resultados esperados de su función:</span> 
                 {{ evaluacion.calificaciones.cumple_resultados }} / 5
             </div>
+            {% endif %}
+            {% if evaluacion.calificaciones.aplica_capacitacion > 0 %}
             <div class="rating-row">
-                <span class="rating-label">Aplica en su desempeño diario los conceptos vistos en capacitaciones y entrenamientos:</span> 
+                <span class="rating-label">Aplica conceptos de capacitaciones y entrenamientos:</span> 
                 {{ evaluacion.calificaciones.aplica_capacitacion }} / 5
             </div>
+            {% endif %}
+            {% if evaluacion.calificaciones.uso_equipos > 0 %}
             <div class="rating-row">
-                <span class="rating-label">Uso adecuado de equipos:</span> 
+                <span class="rating-label">Uso adecuado de equipos y recursos:</span> 
                 {{ evaluacion.calificaciones.uso_equipos }} / 5
             </div>
+            {% endif %}
         </div>
         
         <div class="section-title">4. Compromiso y calidad (1 a 5)</div>
         <div class="block">
+            {% if evaluacion.calificaciones.cumple_politicas > 0 %}
             <div class="rating-row">
-                <span class="rating-label">Cumple con las políticas, leyes, reglamentos, procedimientos, normas y horarios aplicables:</span> 
+                <span class="rating-label">Cumple con políticas, procedimientos, normas y horarios:</span> 
                 {{ evaluacion.calificaciones.cumple_politicas }} / 5
             </div>
+            {% endif %}
+            {% if evaluacion.calificaciones.conoce_calidad > 0 %}
             <div class="rating-row">
-                <span class="rating-label">Conoce, entiende y aplica la política de calidad de LABORATORIOS NOVADERMA SA:</span> 
+                <span class="rating-label">Conoce y aplica la política de calidad:</span> 
                 {{ evaluacion.calificaciones.conoce_calidad }} / 5
             </div>
+            {% endif %}
+            {% if evaluacion.calificaciones.propone_mejoras > 0 %}
             <div class="rating-row">
-                <span class="rating-label">Propone alternativas para mejorar el trabajo, aportando ideas constructivas y recomendaciones:</span> 
+                <span class="rating-label">Propone alternativas de mejora e ideas constructivas:</span> 
                 {{ evaluacion.calificaciones.propone_mejoras }} / 5
             </div>
+            {% endif %}
         </div>
         
         <div class="section-title">5. Comportamiento y trabajo en equipo (1 a 5)</div>
         <div class="block">
+            {% if evaluacion.calificaciones.relaciones > 0 %}
             <div class="rating-row">
-                <span class="rating-label">Relaciones interpersonales:</span> 
+                <span class="rating-label">Relaciones interpersonales y cordialidad:</span> 
                 {{ evaluacion.calificaciones.relaciones }} / 5
             </div>
+            {% endif %}
+            {% if evaluacion.calificaciones.trabajo_equipo > 0 %}
             <div class="rating-row">
-                <span class="rating-label">Trabajo en equipo:</span> 
+                <span class="rating-label">Trabajo en equipo y colaboración:</span> 
                 {{ evaluacion.calificaciones.trabajo_equipo }} / 5
             </div>
+            {% endif %}
+            {% if evaluacion.calificaciones.actitud_servicio > 0 %}
             <div class="rating-row">
                 <span class="rating-label">Actitud de servicio:</span> 
                 {{ evaluacion.calificaciones.actitud_servicio }} / 5
             </div>
+            {% endif %}
         </div>
         
         <div class="section-title">6. Aportes</div>

@@ -250,6 +250,32 @@ def procesar_excel(file_path):
 def index():
     return render_template('index.html')
 
+@app.route('/test-pdf')
+def test_pdf():
+    """Endpoint de prueba para verificar que WeasyPrint funciona"""
+    try:
+        html_simple = """
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset="UTF-8"></head>
+        <body>
+            <h1>Prueba de PDF</h1>
+            <p>Si ves esto, WeasyPrint funciona correctamente.</p>
+        </body>
+        </html>
+        """
+        pdf_bytes = HTML(string=html_simple).write_pdf()
+        pdf_buffer = BytesIO(pdf_bytes)
+        pdf_buffer.seek(0)
+        
+        return send_file(pdf_buffer, 
+                        as_attachment=True,
+                        download_name='test.pdf',
+                        mimetype='application/pdf')
+    except Exception as e:
+        import traceback
+        return f"Error: {str(e)}<br><br><pre>{traceback.format_exc()}</pre>", 500
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
@@ -303,20 +329,38 @@ def generar_pdf(eval_id):
         if not evaluacion:
             return jsonify({'error': 'No se recibieron datos'}), 400
         
-        logo_base64 = get_logo_base64()
-        html_content = render_template('reporte.html', 
-                                      evaluacion=evaluacion,
-                                      logo_base64=logo_base64)
+        # Obtener logo
+        try:
+            logo_base64 = get_logo_base64()
+        except Exception as e:
+            print(f"Advertencia: No se pudo cargar el logo: {e}")
+            logo_base64 = ''
+        
+        # Renderizar HTML
+        try:
+            html_content = render_template('reporte.html', 
+                                          evaluacion=evaluacion,
+                                          logo_base64=logo_base64)
+        except Exception as e:
+            print(f"Error al renderizar template: {e}")
+            return jsonify({'error': f'Error al renderizar template: {str(e)}'}), 500
         
         # Generar PDF en memoria
-        pdf_bytes = HTML(string=html_content).write_pdf()
+        try:
+            pdf_bytes = HTML(string=html_content).write_pdf()
+        except Exception as e:
+            print(f"Error al generar PDF con WeasyPrint: {e}")
+            import traceback
+            traceback.print_exc()
+            return jsonify({'error': f'Error al generar PDF: {str(e)}'}), 500
         
-        # Crear un objeto BytesIO para enviar el PDF
+        # Crear buffer
         pdf_buffer = BytesIO(pdf_bytes)
         pdf_buffer.seek(0)
         
-        # Nombre del archivo
-        pdf_filename = f"evaluacion_{evaluacion['nombre'].replace(' ', '_')}_{eval_id}.pdf"
+        # Nombre del archivo (sanitizar caracteres especiales)
+        nombre_sanitizado = ''.join(c if c.isalnum() or c in (' ', '_') else '_' for c in evaluacion['nombre'])
+        pdf_filename = f"evaluacion_{nombre_sanitizado.replace(' ', '_')}_{eval_id}.pdf"
         
         return send_file(pdf_buffer, 
                         as_attachment=True,
@@ -325,7 +369,7 @@ def generar_pdf(eval_id):
     except Exception as e:
         import traceback
         error_detail = traceback.format_exc()
-        print(f"Error al generar PDF:\n{error_detail}")
+        print(f"Error general al generar PDF:\n{error_detail}")
         return jsonify({'error': f'Error al generar PDF: {str(e)}'}), 500
 
 if __name__ == '__main__':

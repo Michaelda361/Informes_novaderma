@@ -10,10 +10,20 @@ import tempfile
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
 
-UPLOAD_FOLDER = 'uploads'
-OUTPUT_FOLDER = 'output'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+# Usar /tmp en producción (Render) o carpetas locales en desarrollo
+UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER', 'uploads')
+OUTPUT_FOLDER = os.environ.get('OUTPUT_FOLDER', 'output')
+
+# Crear carpetas si no existen (solo en desarrollo)
+if not os.path.exists('/tmp'):
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+else:
+    # En producción usar /tmp
+    UPLOAD_FOLDER = '/tmp/uploads'
+    OUTPUT_FOLDER = '/tmp/output'
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 def get_logo_base64():
     """Retorna el logo en base64 si existe"""
@@ -298,16 +308,24 @@ def generar_pdf(eval_id):
                                       evaluacion=evaluacion,
                                       logo_base64=logo_base64)
         
+        # Generar PDF en memoria
+        pdf_bytes = HTML(string=html_content).write_pdf()
+        
+        # Crear un objeto BytesIO para enviar el PDF
+        pdf_buffer = BytesIO(pdf_bytes)
+        pdf_buffer.seek(0)
+        
+        # Nombre del archivo
         pdf_filename = f"evaluacion_{evaluacion['nombre'].replace(' ', '_')}_{eval_id}.pdf"
-        pdf_path = os.path.join(OUTPUT_FOLDER, pdf_filename)
         
-        HTML(string=html_content).write_pdf(pdf_path)
-        
-        return send_file(pdf_path, 
+        return send_file(pdf_buffer, 
                         as_attachment=True,
                         download_name=pdf_filename,
                         mimetype='application/pdf')
     except Exception as e:
+        import traceback
+        error_detail = traceback.format_exc()
+        print(f"Error al generar PDF:\n{error_detail}")
         return jsonify({'error': f'Error al generar PDF: {str(e)}'}), 500
 
 if __name__ == '__main__':

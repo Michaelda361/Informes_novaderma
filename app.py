@@ -196,16 +196,16 @@ def procesar_excel(file_path):
         # Extraer datos básicos
         evaluacion = {
             'id': id_val,
-            'nombre': str(get_col('nombre', '')),
-            'cargo': str(get_col('cargo', '')),
-            'area': str(get_col('area', '')),
-            'jefe': str(get_col('jefe', '')),
+            'nombre': str(get_col('nombre', '')).upper(),
+            'cargo': str(get_col('cargo', '')).upper(),
+            'area': str(get_col('area', '')).upper(),
+            'jefe': str(get_col('jefe', '')).upper(),
             'fecha': '',
-            'periodo': str(get_col('periodo', '')),
+            'periodo': str(get_col('periodo', '')).upper(),
             'porcentaje': get_col('porcentaje', 0),
-            'comentario_jefe': str(get_col('comentario_jefe', '')),
-            'plan_mejora': str(get_col('plan_mejora', '')),
-            'aportes': str(get_col('aportes', '')),
+            'comentario_jefe': str(get_col('comentario_jefe', '')).upper(),
+            'plan_mejora': str(get_col('plan_mejora', '')).upper(),
+            'aportes': str(get_col('aportes', '')).upper(),
         }
         
         # Formatear fecha

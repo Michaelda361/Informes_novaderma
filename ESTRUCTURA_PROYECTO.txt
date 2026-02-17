@@ -1,0 +1,72 @@
+═══════════════════════════════════════════════════════════════
+  ESTRUCTURA DEL PROYECTO
+═══════════════════════════════════════════════════════════════
+
+📁 informes-novaderma/
+│
+├── 🐍 APLICACIÓN
+│   ├── app.py                      # Aplicación Flask principal
+│   ├── requirements.txt            # Dependencias Python
+│   └── runtime.txt                 # Versión Python (3.11.9)
+│
+├── 🎨 INTERFAZ
+│   ├── templates/
+│   │   ├── index.html             # Página principal
+│   │   └── reporte.html           # Template PDF
+│   └── static/
+│       ├── logo.png               # Logo empresa
+│       └── README.txt             # Info del logo
+│
+├── 📂 CARPETAS DE TRABAJO
+│   ├── uploads/                   # Excel temporales
+│   └── output/                    # PDFs generados
+│
+├── 🚀 SCRIPTS
+│   ├── iniciar.bat                # Iniciar aplicación
+│   ├── instalar_todo.bat          # Instalador automático
+│   ├── configurar_git.bat         # Configurar Git
+│   └── subir_a_github.bat         # Subir a GitHub
+│
+├── 📚 DOCUMENTACIÓN
+│   ├── README.md                  # Documentación principal
+│   ├── INSTALACION_AUTOMATICA.md  # Guía instalación
+│   ├── DESPLIEGUE.md              # Guía despliegue nube
+│   └── ESTRUCTURA_PROYECTO.txt    # Este archivo
+│
+└── ⚙️ CONFIGURACIÓN
+    ├── .gitignore                 # Archivos ignorados Git
+    ├── render.yaml                # Config Render.com
+    ├── apt-packages.txt           # Dependencias sistema
+    └── LICENSE                    # Licencia MIT
+
+═══════════════════════════════════════════════════════════════
+  ARCHIVOS ESENCIALES
+═══════════════════════════════════════════════════════════════
+
+PARA EJECUTAR LOCALMENTE:
+✅ app.py
+✅ requirements.txt
+✅ templates/
+✅ static/
+✅ iniciar.bat
+
+PARA DESPLEGAR EN RENDER:
+✅ app.py
+✅ requirements.txt
+✅ render.yaml
+✅ runtime.txt
+✅ apt-packages.txt
+✅ templates/
+✅ static/
+
+PARA INSTALAR:
+✅ instalar_todo.bat
+✅ INSTALACION_AUTOMATICA.md
+
+PARA DOCUMENTACIÓN:
+✅ README.md
+✅ DESPLIEGUE.md
+
+═══════════════════════════════════════════════════════════════
+  TOTAL DE ARCHIVOS: ~20
+═══════════════════════════════════════════════════════════════

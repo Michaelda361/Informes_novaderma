@@ -1,6 +1,114 @@
-# Guía de Despliegue Gratuito
+# 🌐 Guía de Despliegue en la Nube
 
-## Opción 1: Render.com (Recomendado)
+## 🚀 Render.com (Recomendado - Gratis)
+
+### Pasos Rápidos
+
+1. **Sube a GitHub**
+   ```bash
+   git add .
+   git commit -m "Preparar para despliegue"
+   git push
+   ```
+
+2. **Crea cuenta en Render**
+   - Ve a https://render.com
+   - Regístrate con GitHub
+
+3. **Crea Web Service**
+   - New + → Web Service
+   - Conecta tu repositorio
+   - Render detecta automáticamente la configuración
+
+4. **Configura Python 3.11** (Importante)
+   - Settings → Environment
+   - Add: `PYTHON_VERSION` = `3.11.9`
+   - Manual Deploy → Clear build cache & deploy
+
+5. **Espera 5-10 minutos**
+   - Tu app estará en: `https://tu-proyecto.onrender.com`
+
+---
+
+## ⚠️ Problema Común: Python 3.14
+
+Render usa Python 3.14 por defecto, pero WeasyPrint requiere 3.11.
+
+**Solución:**
+1. Settings → Environment Variables
+2. Agregar: `PYTHON_VERSION` = `3.11.9`
+3. Manual Deploy → Clear build cache & deploy
+
+---
+
+## 🔧 Configuración Manual (Si es necesario)
+
+Si Render no detecta automáticamente:
+
+- **Build Command:** `pip install -r requirements.txt`
+- **Start Command:** `gunicorn app:app`
+- **Python Version:** 3.11
+
+---
+
+## 🚂 Railway.app (Alternativa)
+
+### Ventajas
+- $5 gratis al mes
+- No se duerme
+- Más rápido
+
+### Pasos
+1. Ve a https://railway.app
+2. Sign up con GitHub
+3. New Project → Deploy from GitHub
+4. Selecciona tu repositorio
+5. Settings → Generate Domain
+6. ¡Listo!
+
+---
+
+## 📊 Comparación
+
+| Plataforma | Costo | Se Duerme | Velocidad |
+|------------|-------|-----------|-----------|
+| **Render** | Gratis | Sí (15 min) | ⭐⭐⭐⭐ |
+| **Railway** | $5/mes | No | ⭐⭐⭐⭐⭐ |
+
+---
+
+## 🐛 Solución de Problemas
+
+### Error: "Failed to build Pillow"
+- Render está usando Python 3.14
+- Solución: Forzar Python 3.11 (ver arriba)
+
+### Error: "cairo library not found"
+- Falta apt-packages.txt
+- Solución: Ya está incluido en el proyecto
+
+### Error al generar PDF
+- Verificar logs en Render
+- Asegurarse de que Python 3.11 esté configurado
+
+---
+
+## 📝 Archivos Necesarios (Ya Incluidos)
+
+✅ `requirements.txt` - Dependencias Python
+✅ `render.yaml` - Configuración Render
+✅ `runtime.txt` - Versión Python
+✅ `apt-packages.txt` - Dependencias sistema
+✅ `.gitignore` - Archivos a ignorar
+
+---
+
+## 🔗 URLs Útiles
+
+- Render Dashboard: https://dashboard.render.com
+- Railway Dashboard: https://railway.app
+- Documentación Render: https://render.com/docs
+- Documentación Railway: https://docs.railway.app
 
 ### Pasos:
 

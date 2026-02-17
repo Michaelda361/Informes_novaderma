@@ -222,9 +222,24 @@ def procesar_excel(file_path):
                 calificaciones.append(val)
         
         # Calcular promedio
-        promedio = sum(calificaciones) / len(calificaciones) if calificaciones else 0
+        # Primero intentar usar el porcentaje del Excel si existe
+        porcentaje_excel = get_col('porcentaje', 0)
+        
+        if porcentaje_excel and isinstance(porcentaje_excel, (int, float)) and porcentaje_excel > 0:
+            # Si el porcentaje está en escala 0-100, convertir a escala 1-5
+            if porcentaje_excel > 5:
+                promedio = (porcentaje_excel / 100) * 5
+            else:
+                promedio = porcentaje_excel
+        else:
+            # Si no hay porcentaje, calcular de las calificaciones
+            promedio = sum(calificaciones) / len(calificaciones) if calificaciones else 0
+        
         evaluacion['promedio'] = round(promedio, 2)
         evaluacion['rendimiento'] = calcular_rendimiento(promedio)
+        
+        # Actualizar el porcentaje en la evaluación
+        evaluacion['porcentaje'] = round(promedio, 2)
         
         # Extraer calificaciones específicas por categoría
         calificaciones_dict = extraer_calificaciones_por_categoria(headers, row)

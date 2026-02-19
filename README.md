@@ -8,13 +8,19 @@ Sistema web para procesar archivos Excel de evaluaciones de desempeño y generar
 
 ## 🎯 Características
 
-- ✅ Interfaz web moderna y responsive
-- ✅ Carga de archivos Excel (.xlsx, .xls) por drag & drop
-- ✅ Procesamiento automático de evaluaciones
-- ✅ Generación de PDFs individuales o masivos
-- ✅ Clasificación automática de rendimiento
-- ✅ Logo personalizable
-- ✅ 100% local y privado (no requiere internet para funcionar)
+- ✅ **4 Tipos de Evaluación Soportados**: Operativo, Directivos, Comercial, Administrativa
+- ✅ **Detección Automática**: Identifica el tipo de evaluación automáticamente
+- ✅ **Interfaz web moderna y responsive**
+- ✅ **Carga de archivos Excel** (.xlsx, .xls) por drag & drop
+- ✅ **Procesamiento inteligente** que se adapta a variaciones en los archivos
+- ✅ **Generación de PDFs** individuales o masivos
+- ✅ **Cálculo automático de promedios** con múltiples métodos
+- ✅ **Clasificación automática de rendimiento**
+- ✅ **Textos en mayúsculas** para formato profesional
+- ✅ **Logo personalizable**
+- ✅ **100% local y privado** (no requiere internet para funcionar)
+- ✅ **Instalación automática** con scripts incluidos
+- ✅ **Listo para despliegue en la nube**
 
 ## 📸 Capturas de Pantalla
 
@@ -115,9 +121,18 @@ El archivo Excel debe contener las siguientes columnas:
 
 - **Backend:** Flask (Python)
 - **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
-- **Generación PDF:** WeasyPrint
+- **Generación PDF:** WeasyPrint + ReportLab (fallback automático)
 - **Procesamiento Excel:** openpyxl
 - **Imágenes:** Pillow
+
+### 📋 Nota sobre Generación de PDFs
+
+El sistema utiliza un enfoque híbrido para máxima compatibilidad:
+
+1. **WeasyPrint** (primera opción): Genera PDFs con formato HTML/CSS completo
+2. **ReportLab** (fallback automático): Se activa si WeasyPrint falla (ej: Python 3.13+)
+
+El cambio es transparente - el usuario siempre obtiene su PDF sin importar qué librería se use.
 
 ## 📁 Estructura del Proyecto
 

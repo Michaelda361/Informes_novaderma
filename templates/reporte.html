@@ -3,155 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page { 
-            size: A4; 
-            margin: 8mm; 
-        } 
-        @media print { 
-            body { 
-                background:#ffffff !important; 
-                padding:0 !important; 
-            } 
-            .container { 
-                box-shadow:none !important; 
-                margin:0 auto !important; 
-                padding:14px 16px !important; 
-                max-width:196mm !important; 
-            } 
-            .main-title { 
-                font-size:16px !important; 
-            } 
-            .subtitle { 
-                font-size:11px !important; 
-            } 
-            .section-title { 
-                font-size:12.5px !important; 
-            } 
-            .info-row, .block, .rating-row { 
-                font-size:11.5px !important; 
-            } 
-            .company-logo img { 
-                max-height:45px !important; 
-            } 
-        } 
-        body { 
-            font-family: Arial, Helvetica, sans-serif; 
-            background-color:#ffffff; 
-            margin:0; 
-            padding:14px; 
-            color:#000000; 
-        } 
-        .container { 
-            width:100%; 
-            max-width:196mm; 
-            background-color:#ffffff; 
-            margin:0 auto; 
-            border-radius:4px; 
-            box-shadow:none; 
-            padding:14px 16px 14px 16px; 
-            color:#000000; 
-        }
-        /* Convertir todo el texto a mayúsculas */
-        .info-row, .block, .section-title {
-            text-transform: uppercase;
-        } 
-            padding:14px 16px 14px 16px; 
-            color:#000000; 
-        } 
-        .header-top { 
-            display:flex; 
-            justify-content:space-between; 
-            align-items:center; 
-            margin-bottom:8px; 
-            gap:12px; 
-        } 
-        .company-logo img { 
-            max-height:45px; 
-            display:block; 
-            height:auto; 
-        } 
-        .code-box { 
-            font-size:10px; 
-            color:#000000; 
-            text-align:right; 
-        } 
-        .code-box div { 
-            margin-bottom:1px; 
-        } 
-        .main-title { 
-            text-align:center; 
-            font-size:16px; 
-            font-weight:bold; 
-            color:#000000; 
-            text-transform:uppercase; 
-            margin:8px 0 5px 0; 
-        } 
-        .subtitle { 
-            text-align:center; 
-            font-size:11px; 
-            color:#000000; 
-            margin-bottom:10px; 
-        } 
-        .section-title { 
-            font-size:12.5px; 
-            font-weight:bold; 
-            color:#000000; 
-            margin-top:10px; 
-            margin-bottom:6px; 
-            border-bottom:1px solid #e4e4e4; 
-            padding-bottom:3px; 
-            text-transform:uppercase; 
-        } 
-        .info-row { 
-            font-size:11.5px; 
-            color:#000000; 
-            margin-bottom:3px; 
-            line-height:1.3; 
-        } 
-        .label { 
-            font-weight:bold; 
-            color:#000000; 
-            text-transform:uppercase; 
-        } 
-        .block { 
-            background-color:#fafafa; 
-            border:1px solid #eeeeee; 
-            border-radius:4px; 
-            padding:10px 12px; 
-            font-size:11.5px; 
-            color:#000000; 
-            margin-bottom:9px; 
-            box-shadow:none; 
-            line-height:1.35; 
-        } 
-        .rating-row { 
-            margin-bottom:4px; 
-        } 
-        .rating-label { 
-            font-weight:bold; 
-            color:#000000; 
-        } 
-        .kpi-neutral { 
-            background:#ffffff; 
-            padding:8px 10px; 
-            border-left:4px solid #9e9e9e; 
-            border-radius:2px; 
-            font-weight:bold; 
-            color:#000000; 
-            box-shadow:none; 
-            border-top:none; 
-            border-right:none; 
-            border-bottom:none; 
-            margin-top:5px; 
-        } 
-        .footer-note { 
-            font-size:10px; 
-            color:#000000; 
-            margin-top:10px; 
-            border-top:1px solid #e4e4e4; 
-            padding-top:5px; 
-            line-height:1.4; 
-        }
+        @page{size:A4;margin:8mm}
+        @media print{body{background:#fff!important;padding:0!important}.container{box-shadow:none!important;margin:0 auto!important;padding:14px 16px!important;max-width:196mm!important}.main-title{font-size:17px!important}.subtitle{font-size:11.5px!important}.section-title{font-size:13.5px!important}.info-row,.block,.rating-row{font-size:12.5px!important}.company-logo img{max-height:50px!important}}
+        body{font-family:Arial,Helvetica,sans-serif;background-color:#fff;margin:0;padding:16px;color:#000}
+        .container{width:100%;max-width:196mm;background-color:#fff;margin:0 auto;border-radius:4px;box-shadow:none;padding:14px 16px 14px 16px;color:#000}
+        .header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:12px}
+        .company-logo img{max-height:50px;display:block;height:auto}
+        .code-box{font-size:10.5px;color:#000;text-align:right}
+        .code-box div{margin-bottom:2px}
+        .main-title{text-align:center;font-size:17px;font-weight:bold;color:#000;text-transform:uppercase;margin:8px 0 5px 0}
+        .subtitle{text-align:center;font-size:11.5px;color:#000;margin-bottom:10px}
+        .section-title{font-size:13.5px;font-weight:bold;color:#000;margin-top:8px;margin-bottom:5px;border-bottom:1px solid #e4e4e4;padding-bottom:3px;text-transform:uppercase}
+        .info-row{font-size:12.5px;color:#000;margin-bottom:2px;line-height:1.3}
+        .label{font-weight:bold;color:#000;text-transform:uppercase}
+        .block{background-color:#fafafa;border:1px solid #eee;border-radius:4px;padding:8px 10px;font-size:12.5px;color:#000;margin-bottom:6px;box-shadow:none;line-height:1.35}
+        .rating-row{margin-bottom:3px}
+        .rating-label{font-weight:bold;color:#000}
+        .kpi-neutral{background:#fff;padding:7px 9px;border-left:4px solid #9e9e9e;border-radius:2px;font-weight:bold;color:#000;margin-top:5px}
+        .footer-note{font-size:10.5px;color:#000;margin-top:8px;border-top:1px solid #e4e4e4;padding-top:5px;line-height:1.4}
     </style>
 </head>
 <body>
@@ -159,7 +28,7 @@
         <div class="header-top">
             <div class="company-logo">
                 {% if logo_base64 %}
-                <img src="data:image/png;base64,{{ logo_base64 }}" alt="LABORATORIOS NOVADERMA S.A." />
+                <img src="data:image/png;base64,{{ logo_base64 }}" alt="LOGO"/>
                 {% else %}
                 <div style="font-size: 20px; font-weight: bold; color: #667eea;">LABORATORIOS NOVADERMA S.A.</div>
                 {% endif %}
@@ -176,116 +45,141 @@
         
         <div class="section-title">1. Datos de identificación del colaborador</div>
         <div class="info-row"><span class="label">Empresa:</span> LABORATORIOS NOVADERMA S.A.</div>
-        <div class="info-row"><span class="label">Área / Proceso:</span> {{ evaluacion.area }}</div>
-        <div class="info-row"><span class="label">Cargo:</span> {{ evaluacion.cargo }}</div>
-        <div class="info-row"><span class="label">Nombre del colaborador:</span> {{ evaluacion.nombre }}</div>
-        <div class="info-row"><span class="label">Jefe inmediato:</span> {{ evaluacion.jefe }}</div>
-        <div class="info-row"><span class="label">Período evaluado:</span> {{ evaluacion.periodo }}</div>
+        <div class="info-row"><span class="label">Área / Proceso:</span> {{ evaluacion.area.upper() }}</div>
+        <div class="info-row"><span class="label">Cargo:</span> {{ evaluacion.cargo.upper() }}</div>
+        <div class="info-row"><span class="label">Nombre del colaborador:</span> {{ evaluacion.nombre.upper() }}</div>
+        <div class="info-row"><span class="label">Jefe inmediato:</span> {{ evaluacion.jefe.upper() }}</div>
+        <div class="info-row"><span class="label">Período evaluado:</span> {{ evaluacion.periodo.upper() }}</div>
         <div class="info-row"><span class="label">Fecha de evaluación:</span> {{ evaluacion.fecha }}</div>
         
         <div class="section-title">2. Resumen del desempeño</div>
         <div class="block">
-            <div style="display:flex; gap:8px; align-items:stretch;">
-                <div class="kpi-neutral" style="flex:1; margin-top:6px;">
-                    PROMEDIO: {{ "%.2f"|format(evaluacion.promedio) }}
-                </div>
-                <div class="kpi-neutral" style="flex:1; margin-top:6px;">
-                    RENDIMIENTO: {{ evaluacion.rendimiento }}
-                </div>
+            <div style="display:flex;gap:8px;align-items:stretch">
+                <div class="kpi-neutral" style="flex:1;margin-top:6px">PROMEDIO: {{ "%.1f"|format(evaluacion.promedio) }}</div>
+                <div class="kpi-neutral" style="flex:1;margin-top:6px">RENDIMIENTO: {{ evaluacion.rendimiento.upper() }}</div>
             </div>
-            <div style="height:3px;"></div>
+            <div style="height:3px"></div>
             <span class="label">Comentario del jefe inmediato:</span><br>
-            {{ evaluacion.comentario_jefe or 'Sin comentarios' }}
+            {{ (evaluacion.comentario_jefe or 'Sin comentarios').upper() }}
         </div>
         
+        {% if evaluacion.tipo_evaluacion == 'OPERATIVO' %}
+        <div class="section-title">3. Desempeño operativo (1 a 5)</div>
+        <div class="block">
+            {% if evaluacion.calificaciones.organizacion > 0 %}
+            <div class="rating-row"><span class="rating-label">Organiza las tareas a fin de cumplir con los tiempos establecidos:</span> {{ evaluacion.calificaciones.organizacion }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.cumple_resultados > 0 %}
+            <div class="rating-row"><span class="rating-label">Cumple con los resultados esperados de su función:</span> {{ evaluacion.calificaciones.cumple_resultados }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.aportes_constructivos > 0 %}
+            <div class="rating-row"><span class="rating-label">Demuestra capacidad para apoyar y generar aportes constructivos al área:</span> {{ evaluacion.calificaciones.aportes_constructivos }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.realiza_actividades > 0 %}
+            <div class="rating-row"><span class="rating-label">Realiza las actividades encomendadas según las instrucciones dadas:</span> {{ evaluacion.calificaciones.realiza_actividades }} / 5</div>
+            {% endif %}
+        </div>
+        {% elif evaluacion.tipo_evaluacion == 'ADMINISTRATIVA' %}
         <div class="section-title">3. Desempeño en el cargo (1 a 5)</div>
         <div class="block">
             {% if evaluacion.calificaciones.organizacion > 0 %}
-            <div class="rating-row">
-                <span class="rating-label">Organización del trabajo y cumplimiento de tiempos:</span> 
-                {{ evaluacion.calificaciones.organizacion }} / 5
-            </div>
+            <div class="rating-row"><span class="rating-label">Conoce y aplica los procedimientos del área:</span> {{ evaluacion.calificaciones.organizacion }} / 5</div>
             {% endif %}
             {% if evaluacion.calificaciones.cumple_resultados > 0 %}
-            <div class="rating-row">
-                <span class="rating-label">Cumple con los resultados esperados de su función:</span> 
-                {{ evaluacion.calificaciones.cumple_resultados }} / 5
-            </div>
+            <div class="rating-row"><span class="rating-label">Cumple con los resultados esperados de su función:</span> {{ evaluacion.calificaciones.cumple_resultados }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.aportes_constructivos > 0 %}
+            <div class="rating-row"><span class="rating-label">Demuestra capacidad para apoyar y generar aportes constructivos al área:</span> {{ evaluacion.calificaciones.aportes_constructivos }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.realiza_actividades > 0 %}
+            <div class="rating-row"><span class="rating-label">Realiza las actividades encomendadas según las instrucciones dadas:</span> {{ evaluacion.calificaciones.realiza_actividades }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.analisis > 0 %}
+            <div class="rating-row"><span class="rating-label">Demuestra capacidad para analizar y solucionar los problemas que se presentan:</span> {{ evaluacion.calificaciones.analisis }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.informes > 0 %}
+            <div class="rating-row"><span class="rating-label">Presenta informes, cartas, etc., de manera oportuna y adecuada:</span> {{ evaluacion.calificaciones.informes }} / 5</div>
             {% endif %}
             {% if evaluacion.calificaciones.aplica_capacitacion > 0 %}
-            <div class="rating-row">
-                <span class="rating-label">Aplica conceptos de capacitaciones y entrenamientos:</span> 
-                {{ evaluacion.calificaciones.aplica_capacitacion }} / 5
-            </div>
+            <div class="rating-row"><span class="rating-label">Aplica en su desempeño diario los conceptos vistos en capacitaciones y entrenamientos:</span> {{ evaluacion.calificaciones.aplica_capacitacion }} / 5</div>
             {% endif %}
             {% if evaluacion.calificaciones.uso_equipos > 0 %}
-            <div class="rating-row">
-                <span class="rating-label">Uso adecuado de equipos y recursos:</span> 
-                {{ evaluacion.calificaciones.uso_equipos }} / 5
-            </div>
+            <div class="rating-row"><span class="rating-label">Hace uso adecuado del equipo y demás elementos de trabajo:</span> {{ evaluacion.calificaciones.uso_equipos }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.entrega_tareas > 0 %}
+            <div class="rating-row"><span class="rating-label">Entrega los informes o tareas encomendadas de manera clara y oportuna:</span> {{ evaluacion.calificaciones.entrega_tareas }} / 5</div>
             {% endif %}
         </div>
+        {% else %}
+        <div class="section-title">3. Desempeño en el cargo (1 a 5)</div>
+        <div class="block">
+            {% if evaluacion.calificaciones.organizacion > 0 %}
+            <div class="rating-row"><span class="rating-label">{% if evaluacion.tipo_evaluacion == 'COMERCIAL' %}Planificación y organización del trabajo comercial:{% elif evaluacion.tipo_evaluacion == 'DIRECTIVOS' %}Organización y planificación estratégica:{% else %}Organización del trabajo y cumplimiento de tiempos:{% endif %}</span> {{ evaluacion.calificaciones.organizacion }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.cumple_resultados > 0 %}
+            <div class="rating-row"><span class="rating-label">{% if evaluacion.tipo_evaluacion == 'COMERCIAL' %}Cumplimiento de objetivos comerciales y cuotas:{% elif evaluacion.tipo_evaluacion == 'DIRECTIVOS' %}Cumplimiento de resultados del área dirigida:{% else %}Cumple con los resultados esperados de su función:{% endif %}</span> {{ evaluacion.calificaciones.cumple_resultados }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.aplica_capacitacion > 0 %}
+            <div class="rating-row"><span class="rating-label">Aplica conceptos de capacitaciones y entrenamientos:</span> {{ evaluacion.calificaciones.aplica_capacitacion }} / 5</div>
+            {% endif %}
+            {% if evaluacion.calificaciones.uso_equipos > 0 %}
+            <div class="rating-row"><span class="rating-label">Uso adecuado de equipos y recursos:</span> {{ evaluacion.calificaciones.uso_equipos }} / 5</div>
+            {% endif %}
+            {% if evaluacion.tipo_evaluacion == 'COMERCIAL' %}
+                {% if evaluacion.calificaciones.ventas > 0 %}
+                <div class="rating-row"><span class="rating-label">Cumplimiento de cuotas y panel médico:</span> {{ evaluacion.calificaciones.ventas }} / 5</div>
+                {% endif %}
+                {% if evaluacion.calificaciones.clientes > 0 %}
+                <div class="rating-row"><span class="rating-label">Atención y relación con clientes/médicos:</span> {{ evaluacion.calificaciones.clientes }} / 5</div>
+                {% endif %}
+            {% endif %}
+            {% if evaluacion.tipo_evaluacion == 'DIRECTIVOS' %}
+                {% if evaluacion.calificaciones.liderazgo > 0 %}
+                <div class="rating-row"><span class="rating-label">Liderazgo y dirección de equipos:</span> {{ evaluacion.calificaciones.liderazgo }} / 5</div>
+                {% endif %}
+                {% if evaluacion.calificaciones.gestion > 0 %}
+                <div class="rating-row"><span class="rating-label">Gestión eficiente de recursos:</span> {{ evaluacion.calificaciones.gestion }} / 5</div>
+                {% endif %}
+                {% if evaluacion.calificaciones.evaluacion_equipo > 0 %}
+                <div class="rating-row"><span class="rating-label">Evaluación y análisis de resultados del equipo:</span> {{ evaluacion.calificaciones.evaluacion_equipo }} / 5</div>
+                {% endif %}
+            {% endif %}
+        </div>
+        {% endif %}
         
         <div class="section-title">4. Compromiso y calidad (1 a 5)</div>
         <div class="block">
             {% if evaluacion.calificaciones.cumple_politicas > 0 %}
-            <div class="rating-row">
-                <span class="rating-label">Cumple con políticas, procedimientos, normas y horarios:</span> 
-                {{ evaluacion.calificaciones.cumple_politicas }} / 5
-            </div>
+            <div class="rating-row"><span class="rating-label">Demuestra compromiso con el cumplimiento de los objetivos y metas:</span> {{ evaluacion.calificaciones.cumple_politicas }} / 5</div>
             {% endif %}
             {% if evaluacion.calificaciones.conoce_calidad > 0 %}
-            <div class="rating-row">
-                <span class="rating-label">Conoce y aplica la política de calidad:</span> 
-                {{ evaluacion.calificaciones.conoce_calidad }} / 5
-            </div>
+            <div class="rating-row"><span class="rating-label">Actúa en pro de los intereses de la empresa y bienestar general:</span> {{ evaluacion.calificaciones.conoce_calidad }} / 5</div>
             {% endif %}
             {% if evaluacion.calificaciones.propone_mejoras > 0 %}
-            <div class="rating-row">
-                <span class="rating-label">Propone alternativas de mejora e ideas constructivas:</span> 
-                {{ evaluacion.calificaciones.propone_mejoras }} / 5
-            </div>
+            <div class="rating-row"><span class="rating-label">Propone alternativas para mejorar el trabajo, aportando ideas:</span> {{ evaluacion.calificaciones.propone_mejoras }} / 5</div>
             {% endif %}
         </div>
         
         <div class="section-title">5. Comportamiento y trabajo en equipo (1 a 5)</div>
         <div class="block">
             {% if evaluacion.calificaciones.relaciones > 0 %}
-            <div class="rating-row">
-                <span class="rating-label">Relaciones interpersonales y cordialidad:</span> 
-                {{ evaluacion.calificaciones.relaciones }} / 5
-            </div>
+            <div class="rating-row"><span class="rating-label">Relaciones interpersonales:</span> {{ evaluacion.calificaciones.relaciones }} / 5</div>
             {% endif %}
             {% if evaluacion.calificaciones.trabajo_equipo > 0 %}
-            <div class="rating-row">
-                <span class="rating-label">Trabajo en equipo y colaboración:</span> 
-                {{ evaluacion.calificaciones.trabajo_equipo }} / 5
-            </div>
+            <div class="rating-row"><span class="rating-label">Trabajo en equipo:</span> {{ evaluacion.calificaciones.trabajo_equipo }} / 5</div>
             {% endif %}
             {% if evaluacion.calificaciones.actitud_servicio > 0 %}
-            <div class="rating-row">
-                <span class="rating-label">Actitud de servicio:</span> 
-                {{ evaluacion.calificaciones.actitud_servicio }} / 5
-            </div>
+            <div class="rating-row"><span class="rating-label">Actitud de servicio:</span> {{ evaluacion.calificaciones.actitud_servicio }} / 5</div>
             {% endif %}
         </div>
         
         <div class="section-title">6. Aportes</div>
-        <div class="block">
-            {{ evaluacion.aportes or 'Sin aportes registrados' }}
-        </div>
+        <div class="block">{{ (evaluacion.aportes or 'Sin aportes registrados').upper() }}</div>
         
         <div class="section-title">7. Plan de mejora</div>
-        <div class="block">
-            <span class="label">Acción de mejora:</span><br>
-            {{ evaluacion.plan_mejora or 'Sin plan de mejora registrado' }}
-        </div>
+        <div class="block"><span class="label">Acción de mejora:</span><br>{{ (evaluacion.plan_mejora or 'Sin plan de mejora registrado').upper() }}</div>
         
-        <div class="footer-note">
-            Este formato se utiliza como registro de evaluación de desempeño y competencias del trabajador, 
-            en coherencia con las políticas internas de LABORATORIOS NOVADERMA S.A. y con los lineamientos 
-            del Sistema de Gestión de la Calidad.
-        </div>
+        <div class="footer-note">Este formato se utiliza como registro de evaluación de desempeño y competencias del trabajador, en coherencia con las políticas internas de LABORATORIOS NOVADERMA S.A. y con los lineamientos del Sistema de Gestión de la Calidad.</div>
     </div>
 </body>
 </html>

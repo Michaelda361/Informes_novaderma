@@ -182,6 +182,9 @@
             text-align: left;
             border-bottom: 1px solid #f0f0f0;
         }
+        td:last-child {
+            min-width: 280px;
+        }
         th {
             background: linear-gradient(135deg, #6EC1E4 0%, #5AB3D8 100%);
             color: white;
@@ -286,6 +289,215 @@
             font-size: 24px;
             font-weight: 600;
         }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            width: 90%;
+            height: 90%;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        .modal-header {
+            background: linear-gradient(135deg, #6EC1E4 0%, #5AB3D8 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        .modal-body {
+            flex: 1;
+            padding: 0;
+            overflow: auto;
+        }
+        .modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .preview-container {
+            padding: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .preview-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .preview-section h3 {
+            color: #2c3e50;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #6EC1E4;
+            padding-bottom: 8px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6EC1E4;
+        }
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .modal-footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-footer-left {
+            display: flex;
+            gap: 10px;
+        }
+        .modal-footer-right {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-preview-pdf {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-preview-pdf:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
+        }
+        .btn-cancel {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-cancel:hover {
+            background: #7f8c8d;
+        }
+        .btn-generate {
+            background: linear-gradient(135deg, #6EC1E4 0%, #5AB3D8 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(110, 193, 228, 0.3);
+        }
+        .pdf-preview-frame {
+            display: none;
+            width: 100%;
+            height: 600px;
+            border: 2px solid #6EC1E4;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .pdf-preview-frame.show {
+            display: block;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-preview {
+            background: linear-gradient(135deg, #5AB3D8 0%, #4A9FC8 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-preview:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(90, 179, 216, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -351,6 +563,31 @@
         </div>
     </div>
 
+    <!-- Modal de Vista Previa Editable -->
+    <div id="pdfModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✏️ Editar y Previsualizar Reporte</h2>
+                <button class="modal-close" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="preview-container" id="previewContainer">
+                    <!-- Contenido dinámico -->
+                </div>
+                <iframe id="pdfPreviewFrame" class="pdf-preview-frame"></iframe>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-footer-left">
+                    <button class="btn-preview-pdf" onclick="previsualizarPDFEditado()">👁️ Vista Previa del PDF</button>
+                </div>
+                <div class="modal-footer-right">
+                    <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                    <button class="btn-generate" onclick="generarPDFDesdeModal()">📥 Generar y Descargar PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let evaluacionesData = [];
         
@@ -361,6 +598,214 @@
         const results = document.getElementById('results');
         const alertContainer = document.getElementById('alert-container');
         const searchInput = document.getElementById('searchInput');
+        const pdfModal = document.getElementById('pdfModal');
+        const previewContainer = document.getElementById('previewContainer');
+        const pdfPreviewFrame = document.getElementById('pdfPreviewFrame');
+        let evaluacionActual = null;
+        let indexActual = null;
+        
+        // Funciones del modal
+        function abrirModal(evaluacion, index) {
+            evaluacionActual = JSON.parse(JSON.stringify(evaluacion)); // Copia profunda
+            indexActual = index;
+            
+            // Ocultar preview del PDF si estaba visible
+            pdfPreviewFrame.classList.remove('show');
+            pdfPreviewFrame.src = '';
+            
+            // Generar formulario editable
+            previewContainer.innerHTML = `
+                <div class="preview-section">
+                    <h3>1. Datos de Identificación del Colaborador</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre del Colaborador</label>
+                            <input type="text" id="edit_nombre" value="${evaluacion.nombre}">
+                        </div>
+                        <div class="form-group">
+                            <label>Cargo</label>
+                            <input type="text" id="edit_cargo" value="${evaluacion.cargo}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Área / Proceso</label>
+                            <input type="text" id="edit_area" value="${evaluacion.area}">
+                        </div>
+                        <div class="form-group">
+                            <label>Jefe Inmediato</label>
+                            <input type="text" id="edit_jefe" value="${evaluacion.jefe}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Período Evaluado</label>
+                            <input type="text" id="edit_periodo" value="${evaluacion.periodo}">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Evaluación</label>
+                            <input type="text" id="edit_fecha" value="${evaluacion.fecha}">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="preview-section">
+                    <h3>2. Resumen del Desempeño</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Promedio</label>
+                            <input type="number" step="0.1" min="0" max="5" id="edit_promedio" value="${evaluacion.promedio}">
+                        </div>
+                        <div class="form-group">
+                            <label>Rendimiento</label>
+                            <input type="text" id="edit_rendimiento" value="${evaluacion.rendimiento}" readonly style="background: #e9ecef;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Comentario del Jefe Inmediato</label>
+                        <textarea id="edit_comentario">${evaluacion.comentario_jefe}</textarea>
+                    </div>
+                </div>
+                
+                <div class="preview-section">
+                    <h3>6. Aportes</h3>
+                    <div class="form-group">
+                        <textarea id="edit_aportes">${evaluacion.aportes}</textarea>
+                    </div>
+                </div>
+                
+                <div class="preview-section">
+                    <h3>7. Plan de Mejora</h3>
+                    <div class="form-group">
+                        <textarea id="edit_plan_mejora">${evaluacion.plan_mejora}</textarea>
+                    </div>
+                </div>
+            `;
+            
+            // Actualizar rendimiento automáticamente al cambiar promedio
+            document.getElementById('edit_promedio').addEventListener('input', (e) => {
+                const promedio = parseFloat(e.target.value);
+                let rendimiento = 'DEFICIENTE';
+                if (promedio >= 4.5) rendimiento = 'SOBRESALIENTE';
+                else if (promedio >= 3.5) rendimiento = 'SATISFACTORIO';
+                else if (promedio >= 2.5) rendimiento = 'ACEPTABLE';
+                else if (promedio >= 1.5) rendimiento = 'NO SATISFACTORIO';
+                document.getElementById('edit_rendimiento').value = rendimiento;
+            });
+            
+            pdfModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function cerrarModal() {
+            pdfModal.classList.remove('show');
+            previewContainer.innerHTML = '';
+            pdfPreviewFrame.classList.remove('show');
+            pdfPreviewFrame.src = '';
+            document.body.style.overflow = 'auto';
+            evaluacionActual = null;
+            indexActual = null;
+        }
+        
+        function obtenerDatosEditados() {
+            return {
+                ...evaluacionActual,
+                nombre: document.getElementById('edit_nombre').value.toUpperCase(),
+                cargo: document.getElementById('edit_cargo').value.toUpperCase(),
+                area: document.getElementById('edit_area').value.toUpperCase(),
+                jefe: document.getElementById('edit_jefe').value.toUpperCase(),
+                periodo: document.getElementById('edit_periodo').value,
+                fecha: document.getElementById('edit_fecha').value,
+                promedio: parseFloat(document.getElementById('edit_promedio').value),
+                rendimiento: document.getElementById('edit_rendimiento').value,
+                comentario_jefe: document.getElementById('edit_comentario').value.toUpperCase(),
+                aportes: document.getElementById('edit_aportes').value.toUpperCase(),
+                plan_mejora: document.getElementById('edit_plan_mejora').value.toUpperCase()
+            };
+        }
+        
+        async function previsualizarPDFEditado() {
+            const evaluacionEditada = obtenerDatosEditados();
+            
+            try {
+                showAlert('⏳ Generando vista previa...', 'success');
+                
+                const response = await fetch(`/generar-pdf/${evaluacionEditada.id}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        evaluacion: evaluacionEditada,
+                        download: false  // Vista previa, no descargar
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    
+                    // Mostrar el iframe con el PDF
+                    pdfPreviewFrame.src = url;
+                    pdfPreviewFrame.classList.add('show');
+                    
+                    // Scroll hacia el preview
+                    pdfPreviewFrame.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    showAlert('✅ Vista previa generada', 'success');
+                } else {
+                    showAlert('Error al generar la vista previa del PDF');
+                }
+            } catch (error) {
+                showAlert('Error: ' + error.message);
+            }
+        }
+        
+        async function generarPDFDesdeModal() {
+            const evaluacionEditada = obtenerDatosEditados();
+            
+            try {
+                const response = await fetch(`/generar-pdf/${evaluacionEditada.id}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        evaluacion: evaluacionEditada,
+                        download: true
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `evaluacion_${evaluacionEditada.nombre.replace(/\s+/g, '_')}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    cerrarModal();
+                    showAlert('✅ PDF generado correctamente con los cambios aplicados', 'success');
+                } else {
+                    showAlert('Error al generar el PDF');
+                }
+            } catch (error) {
+                showAlert('Error: ' + error.message);
+            }
+        }
+        
+        // Cerrar modal al hacer clic fuera
+        pdfModal.addEventListener('click', (e) => {
+            if (e.target === pdfModal) {
+                cerrarModal();
+            }
+        });
+        
+        // Cerrar modal con tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && pdfModal.classList.contains('show')) {
+                cerrarModal();
+            }
+        });
         
         // Search functionality
         searchInput.addEventListener('input', (e) => {
@@ -475,9 +920,14 @@
                         <td><strong>${eval.promedio}</strong></td>
                         <td><span class="badge ${badgeClass}">${eval.rendimiento}</span></td>
                         <td>
-                            <button class="btn-pdf" onclick="generarPDF(${index})">
-                                📄 Generar PDF
-                            </button>
+                            <div class="btn-group">
+                                <button class="btn-preview" onclick="previsualizarPDF(${index})">
+                                    ✏️ Editar
+                                </button>
+                                <button class="btn-pdf" onclick="generarPDF(${index})">
+                                    📄 Descargar
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 `;
@@ -487,6 +937,11 @@
             results.classList.add('show');
         }
         
+        async function previsualizarPDF(index) {
+            const evaluacion = evaluacionesData[index];
+            abrirModal(evaluacion, index);
+        }
+        
         async function generarPDF(index) {
             const evaluacion = evaluacionesData[index];
             
@@ -494,7 +949,10 @@
                 const response = await fetch(`/generar-pdf/${evaluacion.id}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ evaluacion })
+                    body: JSON.stringify({ 
+                        evaluacion: evaluacion,
+                        download: true  // Descargar archivo
+                    })
                 });
                 
                 if (response.ok) {
@@ -507,7 +965,7 @@
                     a.click();
                     window.URL.revokeObjectURL(url);
                     document.body.removeChild(a);
-                    showAlert('✅ PDF generado correctamente', 'success');
+                    showAlert('✅ PDF descargado correctamente', 'success');
                 } else {
                     showAlert('Error al generar el PDF');
                 }

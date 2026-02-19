@@ -1004,6 +1004,7 @@ def generar_pdf(eval_id):
     try:
         data = request.json
         evaluacion = data.get('evaluacion')
+        download = data.get('download', True)  # Por defecto descarga
         
         if not evaluacion:
             return jsonify({'error': 'No se recibieron datos'}), 400
@@ -1080,8 +1081,11 @@ def generar_pdf(eval_id):
         nombre_sanitizado = ''.join(c if c.isalnum() or c in (' ', '_') else '_' for c in evaluacion['nombre'])
         pdf_filename = f"evaluacion_{nombre_sanitizado.replace(' ', '_')}_{eval_id}.pdf"
         
+        # Si download=False, mostrar en el navegador (previsualización)
+        as_attachment = download
+        
         return send_file(pdf_buffer, 
-                        as_attachment=True,
+                        as_attachment=as_attachment,
                         download_name=pdf_filename,
                         mimetype='application/pdf')
                         
